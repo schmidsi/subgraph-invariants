@@ -1,4 +1,4 @@
-import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts';
+import { Address, BigInt, Bytes, log } from '@graphprotocol/graph-ts';
 import { MyNFT, Transfer as TransferEvent } from '../generated/MyNFT/MyNFT';
 import { Account, Token, Transfer } from '../generated/schema';
 
@@ -46,12 +46,17 @@ export function handleTransfer(event: TransferEvent): void {
   entity.to = to.id;
   entity.token = token.id;
 
-  if (from.id != ZERO_ADDRESS) {
-    from.balance = from.balance.minus(BigInt.fromI32(1));
+  // if (from.id != ZERO_ADDRESS) {
+  from.balance = from.balance.minus(BigInt.fromI32(1));
 
-    assert(from.balance >= BigInt.fromI32(0), 'Negative balance');
-    from.save();
-  }
+  assert(from.balance >= BigInt.fromI32(0), 'Negative balance');
+
+  // if (from.balance <= BigInt.fromI32(0)) {
+  //   log.critical('Negative balance', []);
+  // }
+
+  from.save();
+  // }
 
   if (to.id != ZERO_ADDRESS) {
     to.balance = to.balance.plus(BigInt.fromI32(1));
