@@ -2,6 +2,12 @@
 
 Explore, explain and document the patterns of invariants in subgraphs.
 
+After the second mint, the subgraph should fail with the following error:
+
+```bash
+ERRO Handler skipped due to execution failure, error: Mapping aborted at src/my-nft.ts, line 63, column 7, with message: Balance mismatch between eth_call and computed balance
+```
+
 ## Prerequisited
 
 - [PNPM installed](https://pnpm.io/installation)
