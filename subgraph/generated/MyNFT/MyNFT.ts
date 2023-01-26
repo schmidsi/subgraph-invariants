@@ -62,6 +62,36 @@ export class ApprovalForAll__Params {
   }
 }
 
+export class ConsecutiveTransfer extends ethereum.Event {
+  get params(): ConsecutiveTransfer__Params {
+    return new ConsecutiveTransfer__Params(this);
+  }
+}
+
+export class ConsecutiveTransfer__Params {
+  _event: ConsecutiveTransfer;
+
+  constructor(event: ConsecutiveTransfer) {
+    this._event = event;
+  }
+
+  get fromTokenId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get toTokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get from(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get to(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+}
+
 export class Transfer extends ethereum.Event {
   get params(): Transfer__Params {
     return new Transfer__Params(this);
@@ -343,8 +373,8 @@ export class MintCall__Inputs {
     this._call = call;
   }
 
-  get to(): Address {
-    return this._call.inputValues[0].value.toAddress();
+  get quantity(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 
@@ -423,7 +453,7 @@ export class SafeTransferFrom1Call__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get data(): Bytes {
+  get _data(): Bytes {
     return this._call.inputValues[3].value.toBytes();
   }
 }
