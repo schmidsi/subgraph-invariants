@@ -1,0 +1,46 @@
+version: '3'
+services:
+  hardhat:
+    build: ./contracts/docker
+    ports:
+      - "8545:8545"
+  graph-node:
+    image: graphprotocol/graph-node:v0.29.0
+    ports:
+      - '8000:8000'
+      - '8001:8001'
+      - '8020:8020'
+      - '8030:8030'
+      - '8040:8040'
+    depends_on:
+      - hardhat
+      - ipfs
+      - postgres
+    environment:
+      postgres_host: postgres
+      postgres_user: graph-node
+      postgres_pass: let-me-in
+      postgres_db: graph-node
+      ipfs: 'ipfs:5001'
+      ethereum: 'localhost:http://hardhat:8545'
+      GRAPH_LOG: info
+      ## Uncomment next line if you want to use debug forking: https://thegraph.com/docs/en/cookbook/subgraph-debug-forking/
+      # fork_base: https://api.thegraph.com/subgraphs/id/
+  ipfs:
+    image: ipfs/kubo:latest
+    ports:
+      - '5001:5001'
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    command:
+      [
+        "postgres",
+        "-cshared_preload_libraries=pg_stat_statements"
+      ]
+    environment:
+      POSTGRES_USER: graph-node
+      POSTGRES_PASSWORD: let-me-in
+      POSTGRES_DB: graph-node
+      PGDATA: "/data/postgres"
