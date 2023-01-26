@@ -1,9 +1,20 @@
 type Transfer @entity(immutable: true) {
   id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  tokenId: BigInt! # uint256
+  from: Account!
+  to: Account!
+  token: Token!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type Token @entity {
+  id: Bytes!
+  owner: Account!
+}
+
+type Account @entity {
+  id: Bytes!
+  balance: BigInt!
+  tokens: [Token!]! @derivedFrom(field: "owner")
 }
