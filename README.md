@@ -1,20 +1,11 @@
-# Fullstack Hackathon Starter Kit
+# Subgraph Invariants
 
-This starter kit aims to be a very minimalistic boilerplate to quickly get
-started with fullstack dapp development with Hardhat and The Graph.
+Explore, explain and document the patterns of invariants in subgraphs.
 
 ## Prerequisited
 
 - [PNPM installed](https://pnpm.io/installation)
 - [Docker installed](https://www.docker.com)
-
-## Features
-
-- ✅ Using PNPM workspaces
-- ✅ Hardhat Typescript project
-- ✅ Subgraph generation with [@graphprotocol/hardhat-graph]
-- ✅ Local development with local hardhat node and a graph-node connected to it
-- 🛠 Frontend
 
 ## Quick Start
 
@@ -80,39 +71,3 @@ Graph Node is not starting.
 - Run `pnpm clean`
 - Restart local dev environment: `pnpm dev`
 - Redeploy everything: `pnpm quickstart`
-
-### Graph Client is built for server
-
-#### Symptom
-
-After running `pnpm dev` in [/frontend](./frontend/) the following error
-appears:
-
-```
-Module not found: Can't resolve 'fs'
-```
-
-#### Solution
-
-Rebuild the Graph Client
-
-```bash
-cd frontend && pnpm graphclient:build
-```
-
-### Account in MetaMask does not have ETH
-
-```bash
-pnpm hardhat fund 0xa85D5BEe27EC7f436A06634Fe6D2A8c3477Eb6C5 --network localhost
-```
-
-# Notes
-
-- Live queries: ~Does not seem to work~ Works now after restart Next server
-  - Can we have a trigger to refresh? Usually it is watching in the front-end
-    for an event or when accounts change.
-- Query result from URQL is not typed :(
-- Resolver type errors
-- Move common additional resolvers like \_ethereum, connect, etc to external
-  repo/plugin
-- Urlq vs Apollo vs React Query?
